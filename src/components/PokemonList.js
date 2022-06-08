@@ -1,10 +1,20 @@
-import React from 'react'
+import React from "react";
+import "../css/pokemonlist.css";
 
-function PokemonList({pokemon}) {
-
+function PokemonList({ pokemon, handleSelectedPokemon }) {
   return (
-    <div>{pokemon.map(poke => <div>{poke}</div>)}</div>
-  )
+    <div>
+      {pokemon.map((poke) => (
+        <div
+          className="list-style"
+          key={poke}
+          onClick={() => handleSelectedPokemon(poke)}
+        >
+          {poke}
+        </div>
+      ))}
+    </div>
+  );
 }
 
-export default PokemonList
+export default PokemonList;

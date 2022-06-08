@@ -1,0 +1,5 @@
+.list-style {
+    border: 1px solid black;
+    width: 250px;
+    cursor: pointer;
+}
