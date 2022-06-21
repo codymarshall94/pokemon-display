@@ -1,5 +1,11 @@
+.pokemon-list {
+    height: 800px;
+}
+
 .list-style {
     border: 1px solid black;
+    text-align: center;
+    padding:.5rem 0;
     width: 250px;
     cursor: pointer;
 }

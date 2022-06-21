@@ -1,0 +1,6 @@
+.move-list {
+    max-height: 300px;
+    max-width: 100%;
+    overflow-y: auto;
+    padding: 20px;
+}

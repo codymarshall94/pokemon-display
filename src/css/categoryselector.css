@@ -1,0 +1,19 @@
+.selection {
+    position: absolute;
+    top: 1em;
+    display: flex;
+    max-width: 300px;
+    justify-content: space-between;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.category-btn {
+    border: none;
+    background-color: white;
+    border-bottom: 1px hidden black;
+}
+
+.category-btn:hover {
+    border-bottom: 1px solid black;
+}
