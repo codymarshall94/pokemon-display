@@ -12,19 +12,19 @@ const RenderPokemonDetails = ({
   setCategory,
 }) => {
   if (selectedPokemonDetails.length !== 0) {
-    let typeStyle = selectedPokemonDetails.types[0].type.name;
+    let typeStyleOne = selectedPokemonDetails.types[0].type.name;
 
     return (
       <>
-        <div className={`container pokemon-container ${typeStyle}`}>
+        <div className={`container pokemon-container ${typeStyleOne}`}>
           {/* Top Half of Pokemon Display Card */}
 
           <div className="pokemon-content">
             <h1>
               {selectedPokemonDetails.name[0].toUpperCase() + selectedPokemonDetails.name.slice(1)}{" "}
-              <span>#{selectedPokemonDetails.id}</span>
             </h1>
           </div>
+          <span className="dex-num-text">{selectedPokemonDetails.id}</span>
           <div className="pokemon-content">
             {selectedPokemonDetails.types.map((type, index) => {
               return (

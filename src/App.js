@@ -38,26 +38,29 @@ function App() {
 
   useEffect(() => {
     if (selectedPokemon.length !== 0) {
-      axios.get(selectedPokemon).then((res) => {
-        setSelectedPokemonDetails(res.data);
-      }).catch(function (error) {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          console.log(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
-        }
-        console.log(error.config);
-      });
+      axios
+        .get(selectedPokemon)
+        .then((res) => {
+          setSelectedPokemonDetails(res.data);
+        })
+        .catch(function (error) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
     }
   }, [selectedPokemon]);
 
@@ -67,7 +70,10 @@ function App() {
 
   return (
     <div className="App container d-flex align-items-center flex-column">
-      <SearchBar setSelectedPokemon={setSelectedPokemon} handleSelectedPokemon={handleSelectedPokemon}/>
+      <SearchBar
+        setSelectedPokemon={setSelectedPokemon}
+        handleSelectedPokemon={handleSelectedPokemon}
+      />
       <div className="container d-flex justify-content-center align-items-center border p-5">
         <div>
           <PokemonList
@@ -75,7 +81,12 @@ function App() {
             handleSelectedPokemon={handleSelectedPokemon}
             selectedPokemonDetails={selectedPokemonDetails}
           />
-          <Pagination goNextPage={goNextPage} goPrevPage={goPrevPage} />
+          <Pagination
+            goNextPage={goNextPage}
+            goPrevPage={goPrevPage}
+            prevPage={prevPage}
+            nextPage={nextPage}
+          />
         </div>
 
         <PokemonDescription selectedPokemonDetails={selectedPokemonDetails} />
