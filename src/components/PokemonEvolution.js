@@ -89,33 +89,18 @@ function PokemonEvolution({ selectedPokemonDetails }) {
 
   }, [selectedPokemonDetails]);
 
-    //Conditionally rendering divs containing evolutions if the state is True
+  //Conditionally rendering divs containing evolutions if the state is True
 
   if(loading){
     return <div> Loading ....</div>
   } else {
     return (
 
-      <div className="d-flex">
-
-      
-      
-      <div className="evolution-box">
-          {baseEvolution !== "no evolution" ? baseEvolution.base.species.name : "No Evolutions"}
-        </div>
-
-      <div className="evolution-box"> 
-        {secondEvolution !== "no evolution" ? secondEvolution.second.species.name : "No Evolutions"}
-      </div>
-
-      <div className="evolution-box"> 
-        {thirdEvolution !== "no evolution" ? thirdEvolution.third.species.name : "No Evolutions"}
-      </div>
-       
-
-
-        
-      </div>
+    <div className="d-flex">
+      {baseEvolution !== "no evolution" ? <div className="evolution-box">{baseEvolution.base.species.name}</div> : null}
+      {secondEvolution !== "no evolution" ? <div className="evolution-box">{secondEvolution.second.species.name}</div> : null}
+      {thirdEvolution !== "no evolution" ? <div className="evolution-box">{thirdEvolution.third.species.name}</div> : null}
+    </div>
     )
   }
 
