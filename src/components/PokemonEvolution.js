@@ -15,22 +15,73 @@ function PokemonEvolution({ selectedPokemonDetails }) {
     //Get Data for base,second and third evolutions
 
     const getEvolutions = async () => {
+
+      //Variables used in IF statements
+
+      let requestBaseEvo;
+      let baseEvoData;
+      let requestSecondEvo;
+      let secondEvoData; 
+      let requestThirdEvo;
+      let thirdEvoData;
+      let baseImage;
+      let secondImage;
+      let thirdImage;
+      let newBaseEvolution;
+      let newSecondEvolution;
+      let newThirdEvolution;
+
+      //Initial requests to get selected Pokemon species Data
+
       let pokeSpecies = await axios.get(selectedPokemonDetails.species.url);
-      let speciesData = (pokeSpecies.data);
+      let speciesData = await pokeSpecies.data;
       let evolutions = await axios.get(speciesData["evolution_chain"].url);
-      let evolutionsData = evolutions.data;
+      let evolutionsData = await evolutions.data;
 
-    //Checking to see if the object properties are undefined and they arent, assign the data to the variable
-
+      //Checking to see if the object in the array exist,then assign the data to the variable
+      
       let base = evolutionsData.chain;
-      let second = base !== undefined ? evolutionsData.chain["evolves_to"][0] : null;
-      let third = second !== undefined ? evolutionsData.chain["evolves_to"][0]["evolves_to"][0] : null;
-    
-    //Setting the state with assign variables
+      let second = evolutionsData.chain["evolves_to"][0] !== undefined ? evolutionsData.chain["evolves_to"][0] : "no evolution";
+      let third = evolutionsData.chain["evolves_to"][0] && evolutionsData.chain["evolves_to"][0]["evolves_to"][0] ? evolutionsData.chain["evolves_to"][0]["evolves_to"][0] : "no evolution";
 
-      setBaseEvolution(base);
-      setSecondEvolution(second);
-      setThirdEvolution(third);
+      // WORKING
+
+      //Checking to see if the variables are TRUE, assign the data to the variable
+      //Assign the image url data to the variables
+
+      if(base !== undefined) {
+        requestBaseEvo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${base.species.name}`);
+        baseEvoData = await requestBaseEvo.data;
+        baseImage= (baseEvoData.sprites.other["official-artwork"].front_default);
+        newBaseEvolution = {base, url: baseImage};
+      }else {
+        newBaseEvolution = "no evolution";
+      }
+      if(second !== "no evolution") {
+        requestSecondEvo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${second.species.name}`);
+        secondEvoData = await requestSecondEvo.data;
+        secondImage = (secondEvoData.sprites.other["official-artwork"].front_default);
+        newSecondEvolution = {second, url: secondImage};
+      }else {
+        newSecondEvolution = "no evolution";
+      }
+      if(third !== "no evolution") {
+        requestThirdEvo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${third.species.name}`);
+        thirdEvoData = await requestThirdEvo.data;
+        thirdImage = (thirdEvoData.sprites.other["official-artwork"].front_default);
+        newThirdEvolution = {third, url: thirdImage};
+      }else {
+        newThirdEvolution = "no evolution";
+      }
+
+      // WORKING
+
+      //Set state with assigned variables
+
+      setBaseEvolution(newBaseEvolution);
+      setSecondEvolution(newSecondEvolution);
+      setThirdEvolution(newThirdEvolution);
+
       setLoading(false);
     }
 
@@ -38,17 +89,32 @@ function PokemonEvolution({ selectedPokemonDetails }) {
 
   }, [selectedPokemonDetails]);
 
-
     //Conditionally rendering divs containing evolutions if the state is True
 
   if(loading){
     return <div> Loading ....</div>
   } else {
     return (
+
       <div className="d-flex">
-        <div className="evolution-box">{baseEvolution["evolves_to"].length !== 0 ? baseEvolution.species.name : "No Evolutions"}</div>
-        {secondEvolution !== undefined ? <div className="evolution-box">{secondEvolution.species.name}</div> : null}
-        {thirdEvolution !== null ? <div className="evolution-box">{thirdEvolution.species.name}</div> : null}
+
+      
+      
+      <div className="evolution-box">
+          {baseEvolution !== "no evolution" ? baseEvolution.base.species.name : "No Evolutions"}
+        </div>
+
+      <div className="evolution-box"> 
+        {secondEvolution !== "no evolution" ? secondEvolution.second.species.name : "No Evolutions"}
+      </div>
+
+      <div className="evolution-box"> 
+        {thirdEvolution !== "no evolution" ? thirdEvolution.third.species.name : "No Evolutions"}
+      </div>
+       
+
+
+        
       </div>
     )
   }
