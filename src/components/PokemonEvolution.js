@@ -74,14 +74,11 @@ function PokemonEvolution({ selectedPokemonDetails }) {
         newThirdEvolution = "no evolution";
       }
 
-      // WORKING
-
       //Set state with assigned variables
 
       setBaseEvolution(newBaseEvolution);
       setSecondEvolution(newSecondEvolution);
       setThirdEvolution(newThirdEvolution);
-
       setLoading(false);
     }
 
@@ -97,9 +94,9 @@ function PokemonEvolution({ selectedPokemonDetails }) {
     return (
 
     <div className="d-flex">
-      {baseEvolution !== "no evolution" ? <div className="evolution-box">{baseEvolution.base.species.name}</div> : null}
-      {secondEvolution !== "no evolution" ? <div className="evolution-box">{secondEvolution.second.species.name}</div> : null}
-      {thirdEvolution !== "no evolution" ? <div className="evolution-box">{thirdEvolution.third.species.name}</div> : null}
+      {baseEvolution !== "no evolution" ? <div className="evolution-box">{baseEvolution.base.species.name}<img className="evolution-image" src={baseEvolution.url} alt="base evo"/></div> : null}
+      {secondEvolution !== "no evolution" ? <div className="evolution-box">{secondEvolution.second.species.name}<img className="evolution-image" src={secondEvolution.url} alt="second evo"/></div> : null}
+      {thirdEvolution !== "no evolution" ? <div className="evolution-box">{thirdEvolution.third.species.name}<img className="evolution-image" src={thirdEvolution.url} alt="third evo"/></div> : null}
     </div>
     )
   }
