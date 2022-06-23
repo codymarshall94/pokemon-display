@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    align-items: center;
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+  }
+  
+  .ball {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    border: 3px solid black;
+    border-radius: 50%;
+    background: linear-gradient( -180deg, red, red 45%, black 45%, black 55%, white 55% ); 
+    animation-name: ball-moving, spin;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+  }
+  
+  .ball-btn {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translateY(-50%);
+    height:30px;
+    width:30px;
+    background: white;
+    border: 5px solid black;
+    border-radius: 50%;
+  }
+  
+  .ball-btn-ring {
+    height:15px;
+    width:15px;
+    background: white;
+    border: 1px solid black;
+    border-radius: 50%;
+    
+  }
+  
+  @keyframes ball-moving {
+    0%   {left:-110px;}
+    25%  {left: 50px;}
+    75%  {left: 250px;}
+    100% {left: -100px;}
+  }
+  
+  @keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
