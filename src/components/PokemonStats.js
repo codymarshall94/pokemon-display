@@ -9,7 +9,7 @@ function PokemonStats({ selectedPokemonDetails }) {
         <div className="row d-flex justify-content-center">
           <h4 className="col">{stat.stat.name}</h4>
           <span className="col">{stat["base_stat"]}</span>
-          <div class="progress p-0">
+          <div className="progress p-0">
             <div
               className="progress-bar"
               role="progressbar"
