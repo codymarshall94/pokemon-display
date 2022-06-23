@@ -21,7 +21,8 @@ const RenderPokemonDetails = ({
 
           <div className="pokemon-content">
             <h1>
-              {selectedPokemonDetails.name[0].toUpperCase() + selectedPokemonDetails.name.slice(1)}{" "}
+              {selectedPokemonDetails.name[0].toUpperCase() +
+                selectedPokemonDetails.name.slice(1)}{" "}
             </h1>
           </div>
           <span className="dex-num-text">{selectedPokemonDetails.id}</span>
@@ -48,7 +49,7 @@ const RenderPokemonDetails = ({
           {/* Bottom Half of Pokemon Display Card */}
 
           <div className="pokemon-content bottom-half">
-            <CategorySelector setCategory={setCategory}/>
+            <CategorySelector setCategory={setCategory} />
 
             {category === "about" ? (
               <PokemonAbout selectedPokemonDetails={selectedPokemonDetails} />
@@ -57,7 +58,9 @@ const RenderPokemonDetails = ({
               <PokemonStats selectedPokemonDetails={selectedPokemonDetails} />
             ) : null}
             {category === "evolution" ? (
-              <PokemonEvolution selectedPokemonDetails={selectedPokemonDetails} />
+              <PokemonEvolution
+                selectedPokemonDetails={selectedPokemonDetails}
+              />
             ) : null}
             {category === "moves" ? (
               <PokemonMoves selectedPokemonDetails={selectedPokemonDetails} />
