@@ -3,12 +3,8 @@ import '../css/loading.css';
 
 function Loading() {
   return (
-      <div class="container">
-        <div class="ball">
-          <div class="ball-btn">
-            <div class="ball-btn-ring"></div>
-          </div>
-        </div>
+      <div className="container d-flex justify-content-center align-items-center loading">
+        <span>Loading...</span>
       </div>
   );
 }
