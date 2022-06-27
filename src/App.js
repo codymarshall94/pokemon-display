@@ -69,24 +69,27 @@ function App() {
   };
 
   return (
-    <div className="App container d-flex align-items-center flex-column">
+    <div className="app container d-flex align-items-center flex-column">
       <SearchBar
         setSelectedPokemon={setSelectedPokemon}
         handleSelectedPokemon={handleSelectedPokemon}
       />
-      <div className="container d-flex justify-content-center align-items-center border p-5">
+      <div className="container d-flex justify-content-center align-items-center py-5">
         <div>
           <PokemonList
             pokemon={pokemon}
             handleSelectedPokemon={handleSelectedPokemon}
             selectedPokemonDetails={selectedPokemonDetails}
+            currentPage={currentPage}
           />
-          <Pagination
-            goNextPage={goNextPage}
-            goPrevPage={goPrevPage}
-            prevPage={prevPage}
-            nextPage={nextPage}
-          />
+          <div className="d-flex justify-content-center">
+            <Pagination
+              goNextPage={goNextPage}
+              goPrevPage={goPrevPage}
+              prevPage={prevPage}
+              nextPage={nextPage}
+            />
+          </div>
         </div>
 
         <PokemonDescription selectedPokemonDetails={selectedPokemonDetails} />
