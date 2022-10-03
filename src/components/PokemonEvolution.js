@@ -32,7 +32,7 @@ function PokemonEvolution({ selectedPokemonDetails }) {
 
       //Initial requests to get selected Pokemon species Data
 
-      let pokeSpecies = await axios.get(selectedPokemonDetails.species.url);
+      let pokeSpecies = await axios.get(selectedPokemonDetails.species);
       let speciesData = await pokeSpecies.data;
       let evolutions = await axios.get(speciesData["evolution_chain"].url);
       let evolutionsData = await evolutions.data;

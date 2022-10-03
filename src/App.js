@@ -2,30 +2,33 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 import PokemonList from "./components/PokemonList";
-import Pagination from "./components/Pagination";
 import PokemonDescription from "./components/PokemonDescription";
+import Pagination from "./components/Pagination";
 import SearchBar from "./components/SearchBar";
 
 function App() {
   const [currentPage, setCurrentPage] = useState(
     "https://pokeapi.co/api/v2/pokemon"
   );
-  const [nextPage, setNextPage] = useState();
-  const [prevPage, setPrevPage] = useState();
+  const [nextPage, setNextPage] = useState("");
+  const [prevPage, setPrevPage] = useState("");
   const [pokemon, setPokemon] = useState([]);
-  const [selectedPokemon, setSelectedPokemon] = useState([]);
+  const [selectedPokemon, setSelectedPokemon] = useState();
   const [selectedPokemonDetails, setSelectedPokemonDetails] = useState([]);
-
-  //Pagination
-
+  
+  //Get The Prev and Next Page Data.
   useEffect(() => {
-    axios.get(currentPage).then((res) => {
-      setNextPage(res.data.next);
-      setPrevPage(res.data.previous);
-      setPokemon(res.data.results.map((poke) => poke.name));
-    });
+    const getPageData = async () => {
+      const req = await axios.get(currentPage);
+      const res = req.data;
+      setNextPage(res.next);
+      setPrevPage(res.previous);
+      setPokemon(res.results);
+    };
+    getPageData();
   }, [currentPage]);
 
+  //Functions to set current page
   const goNextPage = () => {
     setCurrentPage(nextPage);
   };
@@ -35,41 +38,37 @@ function App() {
   };
 
   //Selecting a Pokemon
-
-  useEffect(() => {
-    if (selectedPokemon.length !== 0) {
-      axios
-        .get(selectedPokemon)
-        .then((res) => {
-          setSelectedPokemonDetails(res.data);
-        })
-        .catch(function (error) {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-        });
-    }
-  }, [selectedPokemon]);
-
-  const handleSelectedPokemon = (id) => {
-    setSelectedPokemon(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  const handleSelectedPokemon = (pokemon) => {
+    setSelectedPokemon(pokemon);
   };
 
+  // Setting Details of selected Pokemon
+  useEffect(() => {
+    const getSelectedPokemonData = async () => {
+      if(selectedPokemon) {
+        const req = await axios.get(`https://pokeapi.co/api/v2/pokemon/${selectedPokemon}`);
+        const res = req.data;
+        
+        const selectedPokemonData = {
+          id: res.id,
+          name: res.name,
+          height: res.height,
+          weight: res.weight,
+          abilities: res.abilities,
+          stats: res.stats,
+          types: res.types,
+          species: res.species.url,
+          officalArt: res.sprites.other["official-artwork"].front_default,
+          sprite: res.sprites["front_default"],
+        };
+        setSelectedPokemonDetails(selectedPokemonData);
+      };
+    }
+    getSelectedPokemonData();
+  }, [selectedPokemon]);
+
   return (
-    <div className="app container d-flex align-items-center flex-column">
+    <div>
       <SearchBar
         setSelectedPokemon={setSelectedPokemon}
         handleSelectedPokemon={handleSelectedPokemon}
@@ -91,7 +90,6 @@ function App() {
             />
           </div>
         </div>
-
         <PokemonDescription selectedPokemonDetails={selectedPokemonDetails} />
       </div>
     </div>

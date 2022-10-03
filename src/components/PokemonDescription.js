@@ -6,11 +6,18 @@ import PokemonEvolution from "./PokemonEvolution";
 import PokemonMoves from "./PokemonMoves";
 import PokemonStats from "./PokemonStats";
 
+
+
 const RenderPokemonDetails = ({
   selectedPokemonDetails,
   category,
   setCategory,
 }) => {
+
+  const paddedIndex = ("00" + selectedPokemonDetails.id).slice(-3);
+
+
+
   if (selectedPokemonDetails.length !== 0) {
     let typeStyleOne = selectedPokemonDetails.types[0].type.name;
 
@@ -25,7 +32,7 @@ const RenderPokemonDetails = ({
                 selectedPokemonDetails.name.slice(1)}{" "}
             </h1>
           </div>
-          <span className="dex-num-text">{selectedPokemonDetails.id}</span>
+          <span className="dex-num-text">{paddedIndex}</span>
           <div className="pokemon-content">
             {selectedPokemonDetails.types.map((type, index) => {
               return (
@@ -38,8 +45,7 @@ const RenderPokemonDetails = ({
           <div className="pokemon-content">
             <img
               src={
-                selectedPokemonDetails.sprites.other["official-artwork"]
-                  .front_default
+                selectedPokemonDetails.officalArt
               }
               className="pokemon-image"
               alt="pokemon"
